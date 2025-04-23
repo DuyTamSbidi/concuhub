@@ -43,7 +43,7 @@ KeyTab:AddButton({
     Title = "Kiểm tra Key",
     Callback = function()
         -- Gửi yêu cầu đến máy chủ PHP để xác minh key
-        local response = game:HttpGet("https://concuhub.wuaze.com" .. userKey)
+        local response = game:HttpGet("http://concuhubkey.wuaze.com/" .. userKey)
         local result = game:GetService("HttpService"):JSONDecode(response)
 
         if result.valid then
@@ -54,7 +54,7 @@ KeyTab:AddButton({
                 Color = Color3.fromRGB(0, 255, 0)  -- Màu thông báo thành công (Xanh lá)
             })
             -- Tải GUI chính
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/yourusername/yourrepo/main/main_gui.lua"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/DuyTamSbidi/concuhub/refs/heads/main/main.lua"))()
         else
             Fluent:Notify({
                 Title = "Lỗi",
