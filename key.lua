@@ -43,7 +43,7 @@ KeyTab:AddButton({
     Title = "Kiểm tra Key",
     Callback = function()
         -- Gửi yêu cầu đến máy chủ PHP để xác minh key
-        local response = game:HttpGet("https://yourdomain.com/verify.php?key=" .. userKey)
+        local response = game:HttpGet("https://concuhub.wuaze.com" .. userKey)
         local result = game:GetService("HttpService"):JSONDecode(response)
 
         if result.valid then
