@@ -43,7 +43,7 @@ KeyTab:AddButton({
                 Duration = 5
             })
             -- Tải GUI chính
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/yourusername/yourrepo/main/main_gui.lua"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/DuyTamSbidi/concuhub/refs/heads/main/main.lua"))()
         else
             Fluent:Notify({
                 Title = "Lỗi",
