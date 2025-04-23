@@ -1,9 +1,9 @@
 -- Tải thư viện Fluent UI
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 
--- Tạo cửa sổ giao diện
+-- Tạo cửa sổ chính
 local Window = Fluent:CreateWindow({
-    Title = "Concuhub - Key System",
+    Title = "Concuhub Key System",
     SubTitle = "Vui lòng nhập key để tiếp tục",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
@@ -12,47 +12,42 @@ local Window = Fluent:CreateWindow({
     MinimizeKey = Enum.KeyCode.LeftControl
 })
 
--- Tạo tab và phần nhập key
-local KeyTab = Window:AddTab({ Title = "Nhập Key", Icon = "key" })
+-- Tạo tab nhập key
+local KeyTab = Window:AddTab({ Title = "Key", Icon = "key" })
 
+-- Biến lưu trữ key người dùng nhập
 local userKey = ""
 
+-- Thêm input box nhập key
 KeyTab:AddInput({
-    Title = "Key của bạn:",
-    Default = "",
-    Placeholder = "Nhập key tại đây",
-    Callback = function(text)
-        userKey = text
+    Name = "Nhập key của bạn",
+    Placeholder = "Concuhub-xxxxxxxxxxxxxx",  -- Placeholder (hiển thị mẫu key)
+    RemoveTextAfterFocusLost = true,
+    Callback = function(value)
+        userKey = value
     end
 })
 
+-- Thêm nút kiểm tra key
 KeyTab:AddButton({
-    Title = "✅ Kiểm tra Key",
+    Title = "Kiểm tra key",
     Callback = function()
-        local HttpService = game:GetService("HttpService")
-        local response = syn.request({
-            Url = "concuhubkey.wuaze.com" .. userKey,
-            Method = "GET"
-        })
-
-        local result = HttpService:JSONDecode(response.Body)
+        -- Gửi yêu cầu đến máy chủ PHP để xác minh key
+        local response = game:HttpGet("http://concuhubkey.wuaze.com" .. userKey)
+        local result = game:GetService("HttpService"):JSONDecode(response)
 
         if result.valid then
             Fluent:Notify({
                 Title = "Thành công",
-                Content = "Key hợp lệ! Đang chuyển sang GUI chính...",
-                Duration = 4
+                Content = "Key hợp lệ! Đang tải GUI chính...",
+                Duration = 5
             })
-
-            wait(1.5)
-
-            -- 👉 Tải GUI chính từ GitHub
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/DuyTamSbidi/concuhub/refs/heads/main/main.lua"))()
-
+            -- Tải GUI chính
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/yourusername/yourrepo/main/main_gui.lua"))()
         else
             Fluent:Notify({
-                Title = "Sai key",
-                Content = "Vui lòng kiểm tra lại key.",
+                Title = "Lỗi",
+                Content = "Key không hợp lệ hoặc đã hết hạn.",
                 Duration = 5
             })
         end
