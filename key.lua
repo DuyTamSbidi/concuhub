@@ -47,7 +47,7 @@ KeyTab:AddButton({
             wait(1.5)
 
             -- 👉 Tải GUI chính từ GitHub
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/yourusername/yourrepo/main/main.lua"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/DuyTamSbidi/concuhub/refs/heads/main/main.lua"))()
 
         else
             Fluent:Notify({
